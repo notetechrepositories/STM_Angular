@@ -1,0 +1,615 @@
+<main>
+    <div class="wrapper">
+        <div class="container">
+            <p-toast></p-toast>
+
+            <!-- ======================== COMPANY USER PROFILE =========================== -->
+
+            <div class="main-body" *ngIf="Company_UserProfile_View">
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3">
+                        <div class="card" style="height: 250px;">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center" style="margin-top: -18px;">
+                                    <img src="src/assets/images/user.png" alt="Admin" class="rounded-circle"
+                                        width="150">
+                                    <div class="mt-3">
+                                        <h4>{{profileDetails[0].t6_name}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters-sm">
+                            <div class="card-body col-sm-6">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <button class="reset-button col-sm-12" role="button" (click)="onResetPassword()">Reset Password</button>
+                                </div>
+                            </div>
+
+                            <div class="card-body col-sm-6">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <button class="delete-button col-sm-12" role="button" (click)="deleteUserAccount($event)">Delete Account</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <h3>Profile</h3>
+                                    </div>
+                                    <div class="col-sm-2 " (click)="onEditProfile('user')"></div>
+                                </div>
+
+                                <div class="row  ">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Name</h6>
+                                        </div>
+                                        <div class="col-sm-8 text-secondary" >
+                                            <div *ngIf="!isEditinput">
+                                                {{profileDetails[0].t6_name}}
+                                            </div>
+                                            <input type="text" *ngIf="isEditinput" [value]="profileDetails[0].t6_name" (input)="onInputChange($event)">
+                                        </div>
+                                        <div class="col-sm-1 text-secondary">
+                                            <i class="fa fa-pencil" style="float: right;font-size: 14px;color: #4e4e4e;"  *ngIf="isEditIcon" (click)="onEditIcon()"></i>
+                                            <div class="text-secondary" *ngIf="updateSaveButton"(click)="onUpdateUserProfile()">
+                                                <button class="save-button"role="button">Save</button> 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t6_email}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Mobile</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t6_mobile_no}}</div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- -------- Company Details ------- -->
+
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3"></div>
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <h3>Company Details</h3>
+                                </div>
+
+                                <div class="row mt-5 ">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Company Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_company_name}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Address</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{profileDetails[0].t5_address_1}},
+                                        {{profileDetails[0].t5_address_2}}
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Location</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_city}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Country</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_country}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">State</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_state}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">ZIP Code</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_zip_pincode}}</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================ COMPANY ADMIN PROFILE =================================-->
+
+            <div class="main-body" *ngIf="Company_AdminProfile_View">
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3">
+                        <div class="card" style="height: 307px;">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center" style="margin-top: -18px;">
+                                    <img src="src/assets/images/user.png" alt="Admin" class="rounded-circle"
+                                        width="150">
+                                    <div class="mt-3">
+                                        <h4>{{profileDetails[0].t5_company_name}}</h4>
+                                        <p class="text-secondary mb-1">COMPANY</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters-sm">
+                            <div class="card-body col-sm-6">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <button class="reset-button col-sm-12" role="button" (click)="onResetPassword()">Reset Password</button>
+                                </div>
+                            </div>
+
+                            <div class="card-body col-sm-6">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <button class="delete-button col-sm-12" role="button" (click)="deleteUserAccount($event)">Delete Account</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h3>Profile</h3>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-5 ">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Name</h6>
+                                    </div>
+
+                                            <div class="col-sm-8 text-secondary" >
+                                                <div *ngIf="!isEditinput">
+                                                    {{profileDetails[0].t6_name}}
+                                                </div>
+                                                <input type="text" *ngIf="isEditinput" [value]="profileDetails[0].t6_name" (input)="onInputChange($event)">
+                                            </div>
+                                            <div class="col-sm-1 text-secondary">
+                                                <i class="fa fa-pencil" style="float: right;font-size: 14px;color: #4e4e4e;"  *ngIf="isEditIcon" (click)="onEditIcon()"></i>
+                                                <div class=" text-secondary" *ngIf="updateSaveButton"(click)="onUpdateUserProfile()">
+                                                    <button class="save-button"role="button">Save</button> 
+                                                </div>
+                                            </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t6_email}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Mobile</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t6_mobile_no}}</div>
+                                </div>
+                                <hr>
+
+                                
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Admin Privilege</h6>
+                                    </div>
+                                    <div class="col-sm-8 text-secondary" >
+                                        <div *ngIf="!isEditDropdown">
+                                            {{profileDetails[0].t6_admin === 'y' ? 'Yes' : 'No' }}
+                                        </div>
+                                            <select *ngIf="isEditDropdown" (change)="onDropdownChange($event)" class="dropdown-class">
+                                                <option value="y" [selected]="profileDetails[0].t6_admin === 'y'">Yes</option>
+                                                <option value="n" [selected]="profileDetails[0].t6_admin === 'n'">No</option>
+                                            </select>
+
+                                    </div>
+                                    <div class="col-sm-1 text-secondary">
+                                        <i class="fa fa-pencil" style="float: right;font-size: 14px;color: #4e4e4e;"  *ngIf="isEdit" (click)="onEdit()"></i>
+                                        <div class=" text-secondary" *ngIf="adminSaveButton"(click)="adminPrivilegeUpdate()">
+                                            <button class="save-button"role="button">Save</button> 
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3"></div>
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <h3>Company Details</h3>
+                                    </div>
+                                    <div class="col-sm-2 " (click)="onEditProfile('company')">
+                                        <i class="fa fa-edit" style="float: right;font-size: 20px;color: #4e4e4e;"></i>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-5 ">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Company Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_company_name}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_email}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Mobile</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_mobile_no}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Address</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{profileDetails[0].t5_address_1}},
+                                        {{profileDetails[0].t5_address_2}}
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Location</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_city}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Country</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_country}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">State</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_state}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">ZIP Code</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_zip_pincode}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Number of Login</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{profileDetails[0].t5_max_device_login_per_username}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Number of Users Allowed</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_max_users_allowed}}
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- ============================ ADMIN PROFILE =================================-->
+
+            <div class="main-body" *ngIf="AdminProfile_View">
+                <div class="col-md-12 ml-2">
+                    <span><a routerLink="/admin-dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Home</a> /</span>
+                    <span class="active-nav"> Registered Users</span>
+                </div>
+                
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="src/assets/images/logo.jpg" alt="Admin" class="rounded-circle"
+                                        width="150">
+                                    <div class="mt-3">
+                                        <h4 class="p-3" contenteditable="true" (input)="onInput($event)" [innerText]="profileDetails[0].t6_name"></h4>
+                                        <p class="text-secondary mb-1">ADMIN</p>
+                                        <div style="display: flex; justify-content: center;" *ngIf="updateSaveButton" (click)="onUpdateUserProfile()">
+                                            <button class="save-button" role="button">Save</button> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <button class="reset-button col-sm-12" role="button" (click)="onResetPassword()">Reset Password</button>
+                                </div>
+                            </div>
+  
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <h3>Profile</h3>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-5 ">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_company_name}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_email}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Mobile</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_mobile_no}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Address</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{profileDetails[0].t5_address_1}},
+                                        {{profileDetails[0].t5_address_2}}
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Location</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_city}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Country</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_country}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">State</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_state}}</div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">ZIP Code</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">{{profileDetails[0].t5_zip_pincode}}</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+
+<!-- ======================= Update Company POPUP ====================== -->
+
+            <p-dialog [(visible)]="CompanyUpdateProfileVisible" [modal]="true"
+                [style]="{ 'width': '55rem','padding':'0px 20px 0px 20px','box-shadow':'none'}" [draggable]="false"
+                [resizable]="false">
+                <div>
+                    <p-toast></p-toast>
+                    <h3 class="text-center mb-4">Compay Profile Updation</h3>
+                    <form class="row g-3" [formGroup]="companyUpdateForm" (ngSubmit)=" onUpdateCompanyProfile()">
+
+                        <div class="col-md-12">
+                            <label class="form-label">Company Name</label>
+                            <input type="email" class="form-control" formControlName="name"
+                                (click)="inputboxClick($event)" [(ngModel)]="profileDetails[0].t5_company_name">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="text" class="form-control" formControlName="email"
+                                (click)="inputboxClick($event)" [(ngModel)]="profileDetails[0].t5_email">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Mobile</label>
+                            <input type="text" class="form-control" formControlName="mobile"
+                                (keypress)="onlyNumbers($event)" maxlength="10" (click)="inputboxClick($event)"
+                                [(ngModel)]="profileDetails[0].t5_mobile_no">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Address 1</label>
+                            <input type="text" class="form-control" formControlName="address"
+                                (click)="inputboxClick($event)" [(ngModel)]="profileDetails[0].t5_address_1">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Address 2</label>
+                            <input type="text" class="form-control" formControlName="address2"
+                                (keypress)="onlyNumbers($event)" maxlength="10" (click)="inputboxClick($event)"
+                                [(ngModel)]="profileDetails[0].t5_address_2">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Country</label>
+                            <input type="text" class="form-control" formControlName="country"
+                                (click)="inputboxClick($event)" [(ngModel)]="profileDetails[0].t5_country">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">State</label>
+                            <input type="text" class="form-control" formControlName="state"
+                                (keypress)="onlyNumbers($event)" maxlength="10" (click)="inputboxClick($event)"
+                                [(ngModel)]="profileDetails[0].t5_state">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-control" formControlName="city"
+                                (click)="inputboxClick($event)" [(ngModel)]="profileDetails[0].t5_city">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">ZIP Code</label>
+                            <input type="text" class="form-control" formControlName="zipcode"
+                                (keypress)="onlyNumbers($event)" maxlength="10" (click)="inputboxClick($event)"
+                                [(ngModel)]="profileDetails[0].t5_zip_pincode">
+                        </div>
+
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary btn-block mt-4 w-100 "
+                                style="background: #008774; border-color: #355a64;">UPDATE</button>
+                        </div>
+
+                        <div class="error_msg col-md-12" *ngIf="errorMessageView">
+                            <i class="fa fa-times-circle"></i>&nbsp;{{ errorMessage }}
+                        </div>
+
+                    </form>
+                </div>
+            </p-dialog>
+
+<!-- ================== RESET PASSWORD POPUP ================= -->
+
+            <p-dialog [(visible)]="ResetPinPopupVisible" [modal]="true"
+            [style]="{ 'width': '45rem','padding':'0px 20px 0px 20px','box-shadow':'none'}" [draggable]="false"
+            [resizable]="false">
+            <div>
+                <p-toast></p-toast>
+                <h3 class="text-center mb-4">RESET PASSWORD</h3>
+                <form class="row g-3" [formGroup]="resetForm" (ngSubmit)="resetpin()">
+                    <div>
+                        <div class="col-md-12" [class.error]="resetForm.controls['password'].dirty && resetForm.hasError('required','password')">
+                            <label for="inputPassword4" class="form-label">Password</label>
+                            <div class="input-group">
+                              <input [type]="type" class="form-control" formControlName="password" name="t6_login_pin" (click)="inputboxClick($event)" >
+                              <span class="input-group-text" (click)="hideShowPassword()">
+                                <i class="fa {{eyeIcon}}" aria-hidden="true"></i>
+                              </span>
+                            </div>
+                            <small style="float:left;margin-top:2px;" *ngIf="resetForm.controls['password'].dirty && resetForm.hasError('required','password')">*Password is required</small>
+                          </div><br>
+                  
+                          <div class="col-md-12" [class.error]="resetForm.controls['newpassword'].dirty && resetForm.hasError('required','newpassword')">
+                            <label for="inputPassword4" class="form-label">Confirm Password</label>
+                            <div class="input-group">
+                              <input type="password" class="form-control" formControlName="newpassword" (click)="inputboxClick($event)" >
+                            </div>  
+                            <small style="float:left;margin-top:2px;" *ngIf="resetForm.controls['newpassword'].dirty && resetForm.hasError('required','newpassword')">*Password is required</small>
+                            <small style="float:left;margin-top:2px;" *ngIf="resetForm.controls['newpassword'].dirty && resetForm.controls['newpassword'].value && resetForm.hasError('mismatch', 'newpassword')">Passwords do not match</small>
+                            <small style="float:left;margin-top:2px;" class="text-success" *ngIf="!resetForm.hasError('required','newpassword') && !resetForm.hasError('mismatch', 'newpassword') && resetForm.controls['newpassword'].dirty && resetForm.controls['newpassword'].valid && resetForm.controls['password'].value">Passwords match</small>
+                          </div>
+                          
+                      <button type="submit" class="btn btn-primary btn-block mt-4 w-100"
+                        style="background: #008774; border-color: #355a64;">Submit
+                      </button>
+                    </div>
+                  </form>
+            </div>
+            </p-dialog>
+
+            <!-- delete DIalogbox -->
+
+            <p-confirmDialog></p-confirmDialog>
+
+
+</main>
