@@ -7,6 +7,9 @@ import { BehaviorSubject } from 'rxjs';
 export class NavigationService {
 
   private navigationViewState = new BehaviorSubject<boolean>(true); // Assuming true is the initial state
+  AddEmployeeButton:boolean=false;
+  HowItsWorkTab=false;
+  HomeTab=false;
 
   constructor() {}
 
@@ -17,4 +20,20 @@ export class NavigationService {
   getNavigationViewState() {
     return this.navigationViewState.asObservable();
   }
+
+  companyAdminNavigation(){
+      this.AddEmployeeButton=true;
+      this.HowItsWorkTab=true;
+      this.HomeTab=true;
+      console.log("companyAdminNavigation");
+      
+  }
+
+  companyUserNavigation(){
+    this.AddEmployeeButton=false;
+    this.HowItsWorkTab=true;
+    this.HomeTab=true;
+    console.log("companyUserNavigation");
+}
+
 }
