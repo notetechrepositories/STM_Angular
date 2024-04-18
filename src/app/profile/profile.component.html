@@ -97,8 +97,8 @@
                                 <div class="row mb-5">
                                     <h3>Active Sessions</h3>
                                 </div>
-                                <div class="row mt-1 active-list" *ngFor="let list of connectionList">
-                                    <h6 class="mb-0 mt-2 mb-2"><i class="fa fa-web" style="color: #3299eb;"></i> {{list.t7_user_agents}}</h6>
+                                <div class="row mt-1 active-list" *ngFor="let list of connectionList" [ngClass]="{'active-session': list.selfActive}">
+                                    <h6 class="mb-0 mt-2 mb-2">{{list.t7_user_agents}}</h6>
                                     <div class="col-sm-7">
                                         <p class="fs-6 ml-1 mt-1">{{ list.inserted_date | date:'dd-MM-yyyy HH:mm:ss' }}</p>
                                     </div>
@@ -289,8 +289,8 @@
                                 <div class="row mb-5">
                                     <h3>Active Sessions</h3>
                                 </div>
-                                <div class="row mt-1 active-list" *ngFor="let list of connectionList">
-                                    <h6 class="mb-0 mt-2 mb-2"><i class="fa fa-web" style="color: #3299eb;"></i> {{list.t7_user_agents}}</h6>
+                                <div class="row mt-2 active-list" *ngFor="let list of connectionList" [ngClass]="{'active-session': list.selfActive}">
+                                    <h6 class="mb-0 mt-2 mb-2">{{list.t7_user_agents}}</h6>
                                     <div class="col-sm-7">
                                         <p class="fs-6 ml-1 mt-1">{{ list.inserted_date | date:'dd-MM-yyyy HH:mm:ss' }}</p>
                                     </div>
