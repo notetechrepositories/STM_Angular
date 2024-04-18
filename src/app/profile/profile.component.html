@@ -97,14 +97,13 @@
                                 <div class="row mb-5">
                                     <h3>Active Sessions</h3>
                                 </div>
-                                <div class="row mt-1 " style="box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px; padding: 10px 0px 0px 0px; border-radius: 15px;">
-                                    <h6 class="mb-0 mt-2"><i class="fa fa-windows" style="color: #3299eb;"></i> Device Name</h6>
+                                <div class="row mt-1 active-list" *ngFor="let list of connectionList">
+                                    <h6 class="mb-0 mt-2 mb-2"><i class="fa fa-web" style="color: #3299eb;"></i> {{list.t7_user_agents}}</h6>
                                     <div class="col-sm-7">
-                                        <p class="fs-6">12:00 PM</p>
+                                        <p class="fs-6 ml-1 mt-1">{{ list.inserted_date | date:'dd-MM-yyyy HH:mm:ss' }}</p>
                                     </div>
                                     <div class="col-sm-5 text-secondary">
-                                        <button class="terminate-button" role="button">Terminate Session</button>
-                                       
+                                        <button class="terminate-button" role="button" (click)="onTerminate(list.t7_singalR_connection_id)">Terminate Session</button>
                                     </div>
                                 </div>
                             </div>
@@ -290,14 +289,13 @@
                                 <div class="row mb-5">
                                     <h3>Active Sessions</h3>
                                 </div>
-                                <div class="row mt-1 " style="box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px; padding: 10px 0px 0px 0px; border-radius: 15px;">
-                                    <h6 class="mb-0 mt-2"><i class="fa fa-windows" style="color: #3299eb;"></i> Device Name</h6>
+                                <div class="row mt-1 active-list" *ngFor="let list of connectionList">
+                                    <h6 class="mb-0 mt-2 mb-2"><i class="fa fa-web" style="color: #3299eb;"></i> {{list.t7_user_agents}}</h6>
                                     <div class="col-sm-7">
-                                        <p class="fs-6">12:00 PM</p>
+                                        <p class="fs-6 ml-1 mt-1">{{ list.inserted_date | date:'dd-MM-yyyy HH:mm:ss' }}</p>
                                     </div>
                                     <div class="col-sm-5 text-secondary">
-                                        <button class="terminate-button" role="button">Terminate Session</button>
-                                       
+                                        <button class="terminate-button" role="button" (click)="onTerminate(list.t7_singalR_connection_id)">Terminate Session</button>
                                     </div>
                                 </div>
                             </div>

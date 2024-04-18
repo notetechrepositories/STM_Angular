@@ -171,7 +171,19 @@ export class RegisteredCompanyComponent {
       if (result.isConfirmed) {
         this.companyService.deleteCompanyById(id).subscribe({
           next:(res)=>{
-     
+            if(res.status==200){
+              console.log(res);
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+                showConfirmButton: false
+              });
+              setTimeout(() => {
+                window.location.reload()
+              }, 3000);
+
+            }
           },
           error:(error)=>{
             let statusCode = error.status; 
@@ -183,20 +195,14 @@ export class RegisteredCompanyComponent {
                 position: "center",
                 icon: "error",
                 title: "Oops!",
-                text:"Something went wrong.",
+                text:error.error.message,
                 showConfirmButton: true
               });
             }
           }
         })
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-          showConfirmButton: false
-        });
       }
-      window.location.reload();
+     
     });
   }
 }

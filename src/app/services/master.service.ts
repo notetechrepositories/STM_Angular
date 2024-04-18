@@ -119,9 +119,12 @@ export class MasterService {
       return this.http.get<any>(`http://59.94.176.2:3241/api/User/details/authorize-user`,{ headers:this.headers })  //All User(company_admin,company_user)
     }
 
-
     logout(id:any){
       return this.http.post<any>(`http://59.94.176.2:3241/api/Authentication/logout?connectionId=${id}`,{},{headers:this.headers})
+    }
+
+    getConnectionList(){
+      return this.http.get<any>(`http://59.94.176.2:3241/api/Authentication/getConnectionList`,{headers:this.headers})
     }
 
  

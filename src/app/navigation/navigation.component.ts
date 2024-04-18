@@ -245,10 +245,10 @@ export class NavigationComponent {
   logout(){ 
     this.service.logout(this.connectionId).subscribe(res=>{
       localStorage.clear();
-      this.navigationView=false;
+      this.navigationService.setNavigationViewState(false);
       this.router.navigate(['/login']).then(() => {
-        window.location.reload();
-      });
+         window.location.reload();
+       });
     })
   }
 }
