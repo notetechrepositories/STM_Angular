@@ -19,7 +19,7 @@ export class AppComponent {
   title: any;
   isLoggedIn=false;
 
-  private timeoutMinutes = 15;
+  private timeoutMinutes = 30;
   private idleTimer$: Observable<number> | undefined;
   private userActions$ = new Subject<void>();
 
