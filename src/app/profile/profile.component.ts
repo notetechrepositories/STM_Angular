@@ -99,15 +99,19 @@ export class ProfileComponent {
       this.Company_UserProfile_View = true;
       this.Company_AdminProfile_View = false;
       this.AdminProfile_View = false;
+      this.navigationService.companyUserNavigation(); 
     } else if (this.userType == 'company_admin') {
       this.Company_UserProfile_View = false;
       this.Company_AdminProfile_View = true;
       this.AdminProfile_View = false;
+      this.navigationService.companyAdminNavigation();
     } else {
       this.Company_UserProfile_View = false;
       this.Company_AdminProfile_View = false;
       this.AdminProfile_View = true;
     }
+
+
   }
 
   forms() {
@@ -201,6 +205,7 @@ export class ProfileComponent {
             showConfirmButton: false,
             timer: 3000,
           });
+          
         },
         error: (error) => {
           console.log(error);
@@ -364,6 +369,15 @@ export class ProfileComponent {
               showConfirmButton: false,
               timer: 3000,
             });
+
+            if(this.adminStatus=="n"){
+              localStorage.removeItem('userType');
+              localStorage.setItem('userType','company_user');
+              setTimeout(() => {
+                location.reload();
+              }, 3000);
+            }
+        
           } else {
             this.isEditDropdown = false;
             this.adminSaveButton = false;
