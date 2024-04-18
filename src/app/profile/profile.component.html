@@ -294,7 +294,7 @@
                                     <div class="col-sm-7">
                                         <p class="fs-6 ml-1 mt-1">{{ list.inserted_date | date:'dd-MM-yyyy HH:mm:ss' }}</p>
                                     </div>
-                                    <div class="col-sm-5 text-secondary">
+                                    <div class="col-sm-5 text-secondary" *ngIf="!list.selfActive">
                                         <button class="terminate-button" role="button" (click)="onTerminate(list.t7_singalR_connection_id)">Terminate Session</button>
                                     </div>
                                 </div>
@@ -310,8 +310,11 @@
                                     <div class="col-sm-10">
                                         <h3>Company Details</h3>
                                     </div>
-                                    <div class="col-sm-2 " (click)="onEditProfile('company')">
+                                    <div class="col-sm-1 " (click)="onEditProfile('company')">
                                         <i class="fa fa-edit" style="float: right;font-size: 20px;color: #4e4e4e;"></i>
+                                    </div>
+                                    <div class="col-sm-1 " (click)="deleteCompanyAccount($event)">
+                                        <i class="fa fa-trash" style="float: right;font-size: 20px;color: #4e4e4e;"></i>
                                     </div>
                                 </div>
 
