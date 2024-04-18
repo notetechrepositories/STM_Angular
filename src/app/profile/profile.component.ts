@@ -279,7 +279,6 @@ export class ProfileComponent {
       acceptIcon: 'none',
       rejectIcon: 'none',
       accept: () => {
-        if (this.userType == 'company_user') {
           this.userService.deleteUserProfile().subscribe({
             next: (res) => {
               this.messageService.add({
@@ -301,29 +300,36 @@ export class ProfileComponent {
               });
             },
           });
-        } else if (this.userType == 'company_admin') {
-          this.companyService.deleteCompanyProfile().subscribe({
-            next: (res) => {
-              this.messageService.add({
-                severity: 'info',
-                summary: 'Confirmed',
-                detail: 'Account Deleted',
-              });
-              console.log(this.connectionId);
+      },
+      reject: () => {},
+    });
+  }
+
+  
+  deleteCompanyAccount(event: any){
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Do you want to delete this account?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+      accept: () => {
+        this.companyService.deleteCompanyProfile().subscribe({
+          next:res=>{
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Account Deleted' });
+            console.log(this.connectionId);
               localStorage.clear();
               this.router.navigate(['/login']).then(() => {
                 window.location.reload();
               });
-            },
-            error: (error) => {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Rejected',
-                detail: 'Unable to Delete this account',
-              });
-            },
-          });
-        }
+          },
+          error:error=>{
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Unable to Delete this account' });
+          }
+        });
       },
       reject: () => {},
     });
