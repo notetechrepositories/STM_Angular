@@ -67,11 +67,11 @@ export class CompanyService {
   }
 
   deleteCompanyProfile(){
-    return this.http.delete<any>(`https://localhost:7198/api/Company/delete/authorize-user`,{headers:this.headers});
+    return this.http.delete<any>(`http://59.94.176.2:3241/api/Company/delete/authorize-user`,{headers:this.headers});
   }
 
   updateAdminPrivilageByCompany(status:any){
-    return this.http.put<any>(`https://localhost:7198/api/User/update/authorize-user-permission?t6_admin=${status}`,{},{headers:this.headers});
+    return this.http.put<any>(`http://59.94.176.2:3241/api/User/update/authorize-user-permission?t6_admin=${status}`,{},{headers:this.headers});
   }
 
   

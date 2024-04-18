@@ -43,7 +43,7 @@ export class UserService {
   }
 
   deleteUserProfile(){
-    return this.http.delete<any>(`https://localhost:7198/api/User/delete/authorize-user`,{headers:this.headers})
+    return this.http.delete<any>(`http://59.94.176.2:3241/api/User/delete/authorize-user`,{headers:this.headers})
   }
 
 
