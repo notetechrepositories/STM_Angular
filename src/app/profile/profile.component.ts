@@ -45,6 +45,7 @@ export class ProfileComponent {
 
   editedName!: string;
   adminStatus!: string;
+  selfActive!:string;
 
   constructor(
     private service: MasterService,
@@ -434,20 +435,23 @@ export class ProfileComponent {
   }
 
   getConnectionList() {
+    const localConnectionId = localStorage.getItem('connectionId'); // Retrieve the stored connection ID once
     this.service.getConnectionList().subscribe({
       next: (res) => {
         console.log(res);
-        // Process each item in the data array to extract browser info
         this.connectionList = res.data.map((item: any) => ({
           ...item,
           t7_user_agents: this.extractBrowserInfo(item.t7_user_agents),
+          selfActive: item.t7_singalR_connection_id === this.connectionId
         }));
+        
       },
       error: (error) => {
         console.log(error);
-      },
+      }
     });
   }
+  
 
   private extractBrowserInfo(userAgent: string): string {
     const regex =/Chrome\/[\d.]+(?:.*$)/;
