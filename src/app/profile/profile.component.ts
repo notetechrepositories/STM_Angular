@@ -345,7 +345,6 @@ export class ProfileComponent {
     console.log(this.adminStatus);
     this.profileDetails[0].t6_admin = this.adminStatus;
     this.isEdit = false;
-    this.isEditDropdown = false;
     this.adminSaveButton = true;
   }
 
@@ -356,6 +355,7 @@ export class ProfileComponent {
       .subscribe({
         next: (res) => {
           if (res.status == 200) {
+            this.isEditDropdown = false;
             this.adminSaveButton = false;
             Swal.fire({
               position: 'center',
