@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener ,OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { MasterService } from '../services/master.service';
 import { CompanyService } from '../services/company.service';
@@ -9,13 +9,15 @@ import { LoginService } from '../login/login.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { NavigationService } from '../navigation/navigation.service';
+import { SignalRService } from '../services/signal-r.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit{
   profileDetails: any[] = [];
   connectionList: any[] = [];
 
@@ -47,6 +49,8 @@ export class ProfileComponent {
   adminStatus!: string;
   selfActive!:string;
 
+  private subscription!: Subscription;
+
   constructor(
     private service: MasterService,
     private companyService: CompanyService,
@@ -55,15 +59,20 @@ export class ProfileComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private navigationService: NavigationService,
+    private signalRService:SignalRService,
     private router: Router,
     private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
+  ngOnInit():void {
     this.getAuthorizeUserDetails();
     this.forms();
     this.loadData();
     this.getConnectionList();
+
+
+    // this.getLoginDeviceList();
+  
   }
 
   logout() {
@@ -88,6 +97,7 @@ export class ProfileComponent {
       event.preventDefault();
     }
   }
+
   inputboxClick(event: any) {
     this.errorMessageView = false;
   }
@@ -111,7 +121,9 @@ export class ProfileComponent {
       this.AdminProfile_View = true;
     }
 
-
+    // this.signalRService.startConnection().then(() => {
+    //   console.log('Connection established with ID:', this.signalRService.getConnectionId());
+    // });
   }
 
   forms() {
@@ -440,6 +452,8 @@ export class ProfileComponent {
             showConfirmButton: false,
             timer: 3000,
           });
+            window.location.reload();
+          
         }
       },
       error: (error) => {
@@ -471,6 +485,20 @@ export class ProfileComponent {
       }
     });
   }
+
+  deviceList: any[] = [];
+
+  getLoginDeviceList(){
+
+    this.signalRService.startConnection().then(() => {
+        console.log('Connection established with ID:', this.signalRService.getConnectionId());
+        this.subscription = this.signalRService.deviceList$.subscribe(list => {
+          this.deviceList = list;
+          console.log('Updated device list:', this.deviceList);
+        });
+     });
+  
+  }
   
 
   private extractBrowserInfo(userAgent: string): string {
@@ -495,7 +523,7 @@ export class ProfileComponent {
             detail: 'Session Terminated',
             life: 3000,
           });
-          window.location.reload();
+          // this.getConnectionList();
         }
       },
       error: (error) => {

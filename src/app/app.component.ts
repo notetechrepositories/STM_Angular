@@ -4,7 +4,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MasterService } from './services/master.service';
 import { DbConfig } from './model/DbConfig';
 import { Router } from '@angular/router';
-import { IdleDetectorService } from './services/idle-detector.service';
 import { NavigationService } from './navigation/navigation.service';
 import { Subject, Observable, timer } from 'rxjs';
 import { switchMap, startWith, tap } from 'rxjs/operators';
