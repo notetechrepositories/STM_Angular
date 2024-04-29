@@ -10,7 +10,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { NavigationService } from '../navigation/navigation.service';
 import { SignalRService } from '../services/signal-r.service';
-import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-profile',
@@ -49,7 +49,9 @@ export class ProfileComponent implements OnInit{
   adminStatus!: string;
   selfActive!:string;
 
-  private subscription!: Subscription;
+  statusCode!:number;
+
+
 
   constructor(
     private service: MasterService,
@@ -492,10 +494,6 @@ export class ProfileComponent implements OnInit{
 
     this.signalRService.startConnection().then(() => {
         console.log('Connection established with ID:', this.signalRService.getConnectionId());
-        this.subscription = this.signalRService.deviceList$.subscribe(list => {
-          this.deviceList = list;
-          console.log('Updated device list:', this.deviceList);
-        });
      });
   
   }

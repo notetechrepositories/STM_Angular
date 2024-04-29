@@ -156,8 +156,10 @@ export class NavigationComponent {
             this.messageService.add({ severity: 'success', summary: 'Successfully Updated!', detail:  this.successMessage, life: 3000 });
           }
         },
-        error:(error)=>{
-          console.log(error);
+        error:(error)=>{ 
+          if(error.status==401){
+            this.logout();
+          }
         }
       })
     }
@@ -203,6 +205,9 @@ export class NavigationComponent {
         error:(error)=>{
           this.errorMessage=error.error.message;
           this.errorMessageView=true;
+          if(error.status==401){
+            this.logout();
+          }
         }
       })
     }
@@ -243,12 +248,21 @@ export class NavigationComponent {
   }
 
   logout(){ 
-    this.service.logout(this.connectionId).subscribe(res=>{
-      localStorage.clear();
-      this.navigationService.setNavigationViewState(false);
-      this.router.navigate(['/login']).then(() => {
-         window.location.reload();
-       });
+    this.service.logout(this.connectionId).subscribe({
+      next:res=>{
+        localStorage.clear();
+        this.navigationService.setNavigationViewState(false);
+        this.router.navigate(['/login']).then(() => {
+           window.location.reload();
+         });
+      },
+      error:error=>{
+        if(error.status==401){
+          console.log("Authorization Expired");
+          
+        }
+      }
+      
     })
   }
 }

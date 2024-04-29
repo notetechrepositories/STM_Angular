@@ -89,6 +89,7 @@ export class HomeComponent {
   @ViewChild('dt') dataTable !: Table;
   userType!: any;
   connectionId!:any;
+  statusCode!:number;
 
   private subscription!: Subscription;
 
@@ -120,9 +121,10 @@ export class HomeComponent {
     this.signalRService.startConnection().then(() => {
       console.log('Connection established with ID:', this.signalRService.getConnectionId());
     });
-    this.subscription = this.signalRService.deviceList$.subscribe(list => {
-      console.log('Updated device list:', list);
-    });
+
+    if(this.statusCode==401){
+      this.logout();
+    }
   }
 
   logout() {
@@ -203,8 +205,8 @@ export class HomeComponent {
         },
         error:(error)=>{
           this.loadingScreen = false;
-          let statusCode = error.status; 
-          if(statusCode == 401){
+          this.statusCode = error.status; 
+          if(this.statusCode == 401){
             this.logout()
           }
           else{
@@ -280,8 +282,8 @@ export class HomeComponent {
         },
         error:(error)=>{
           this.loadingScreen = false;
-          let statusCode = error.status; 
-          if(statusCode == 401){
+          this.statusCode = error.status; 
+          if(this.statusCode == 401){
             this.logout()
           }
           else{
@@ -354,8 +356,8 @@ export class HomeComponent {
         },
         error:(error)=>{
           this.loadingScreen = false;
-          let statusCode = error.status; 
-          if(statusCode == 401){
+          this.statusCode = error.status; 
+          if(this.statusCode == 401){
             this.logout()
           }
           else{
@@ -473,8 +475,8 @@ export class HomeComponent {
         },
         error:(error)=>{
           this.loadingScreen = false;
-          let statusCode = error.status; 
-          if(statusCode == 401){
+          this.statusCode = error.status; 
+          if(this.statusCode == 401){
             this.logout()
           }
           else{
@@ -557,8 +559,8 @@ export class HomeComponent {
         },
         error:(error)=>{
           this.loadingScreen = false;
-          let statusCode = error.status; 
-          if(statusCode == 401){
+          this.statusCode = error.status; 
+          if(this.statusCode == 401){
             this.logout()
           }
           else{
@@ -631,8 +633,8 @@ export class HomeComponent {
         },
         error:(error)=>{
           this.loadingScreen = false;
-          let statusCode = error.status; 
-          if(statusCode == 401){
+          this.statusCode = error.status; 
+          if(this.statusCode == 401){
             this.logout()
           }
           else{
@@ -704,8 +706,8 @@ export class HomeComponent {
         },
         error:(error)=>{
         this.loadingScreen = false;
-        let statusCode = error.status; 
-        if(statusCode == 401){
+        this.statusCode = error.status; 
+        if(this.statusCode == 401){
           this.logout()
         }
         else{
@@ -797,8 +799,8 @@ export class HomeComponent {
       },
       error:error=>{
         this.loadingScreen = false;
-        let statusCode = error.status; 
-        if(statusCode == 401){
+        this.statusCode = error.status; 
+        if(this.statusCode == 401){
           this.logout()
         }
         else{
@@ -870,8 +872,8 @@ export class HomeComponent {
         },
         error:(error)=>{
           this.loadingScreen = false;
-          let statusCode = error.status; 
-          if(statusCode == 401){
+          this.statusCode = error.status; 
+          if(this.statusCode == 401){
             this.logout()
           }
           else{
