@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 import { Table } from 'primeng/table';
 import { ViewChild } from '@angular/core';
 import { NavigationService } from '../navigation/navigation.service';
+import { SignalRService } from '../services/signal-r.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -88,11 +90,14 @@ export class HomeComponent {
   userType!: any;
   connectionId!:any;
 
+  private subscription!: Subscription;
+
 
   constructor(private service: MasterService, 
               private messageService: MessageService,
               private confirmationService: ConfirmationService,
               private navigationService:NavigationService,
+              private signalRService:SignalRService,
               private router: Router) { }
 
 
@@ -112,6 +117,12 @@ export class HomeComponent {
   loadData() {
     this.userType = localStorage.getItem('userType');
     this.connectionId=localStorage.getItem('connectionId');
+    this.signalRService.startConnection().then(() => {
+      console.log('Connection established with ID:', this.signalRService.getConnectionId());
+    });
+    this.subscription = this.signalRService.deviceList$.subscribe(list => {
+      console.log('Updated device list:', list);
+    });
   }
 
   logout() {

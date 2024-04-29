@@ -124,7 +124,7 @@ export class MasterService {
     }
 
     getConnectionList(){
-      return this.http.get<any>(`http://59.94.176.2:3241/api/Authentication/getConnectionList`,{headers:this.headers})
+            return this.http.get<any>(`http://59.94.176.2:3241/api/Authentication/getConnectionList`,{headers:this.headers})
     }
 
  
