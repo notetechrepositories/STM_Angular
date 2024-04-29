@@ -253,7 +253,7 @@ input[type="checkbox"]:checked + .profile-menu-wrap {
 }
  ul.navmenu-items {
   max-height:800px;
-  padding:15px 0;
+  padding:15px 29px;
   opacity:1;
 }
 .user-info {
@@ -298,6 +298,17 @@ input[type="checkbox"]:checked + .profile-menu-wrap {
   font-size: 15px;
   padding-top: 7px;
   color: #008774;
+}
+
+@media (max-width: 600px) {
+  
+.profile-menu-wrap {
+  top: 104%;
+  width: 100%;
+}
+.tutorial-img img {
+  width:100%;
+}
 }
 
 

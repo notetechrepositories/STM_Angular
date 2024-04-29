@@ -14,9 +14,9 @@ export class SignalRService {
   private isConnectionActive: boolean = false;
   connectionId:any;
 
-  private deviceListSubject = new BehaviorSubject<any[]>([]); // Initialize with an empty array
+  private deviceListSubject :any[]=[]; // Initialize with an empty array
 
-  public deviceList$ = this.deviceListSubject.asObservable();
+  public deviceList$ = this.deviceListSubject;
  
 
   constructor(private router: Router,
@@ -117,7 +117,6 @@ export class SignalRService {
 
         this.hubConnection.on('AlertAuthentication', (list: any) => {
           console.log('Received device list:', list);
-          this.deviceListSubject.next(list);
         });
 
         this.hubConnection.on('SampleTerminate', (message: string) => {
