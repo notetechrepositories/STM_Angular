@@ -21,6 +21,7 @@ export class AppComponent {
   private timeoutMinutes = 30;
   private idleTimer$: Observable<number> | undefined;
   private userActions$ = new Subject<void>();
+  logoutTimer: any;
 
   accessToken!:any;
   pinUpdatedStatus!:any;
@@ -42,9 +43,9 @@ resetTimer() {
     
   ngOnInit() {
     this.loadData();
-
     if(this.connectionId!=null){
     this.initializeIdleTimer();
+    this.startLogoutTimer();
     }
     
   }
@@ -93,7 +94,6 @@ userAction() {
 
 logout() {
   if(this.connectionId!=null){
-    console.log(this.connectionId);
     this.service.logout(this.connectionId).subscribe({
       next:res=>{
         localStorage.clear();
@@ -106,6 +106,13 @@ logout() {
       }
     });
   }
+  }
+
+  private startLogoutTimer() {
+    const timeoutDuration = 48 * 60 * 1000; 
+    this.logoutTimer = setTimeout(() => {
+      this.logout();
+    }, timeoutDuration);
   }
 
 }

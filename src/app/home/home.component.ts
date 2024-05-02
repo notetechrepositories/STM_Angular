@@ -210,6 +210,7 @@ export class HomeComponent {
             this.logout()
           }
           else{
+            this.isLoading = false;
             Swal.fire({
               position: "center",
               icon: "error",
