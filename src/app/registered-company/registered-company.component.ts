@@ -113,7 +113,7 @@ export class RegisteredCompanyComponent {
       t5_address_1: this.companynew.address_1,
       t5_address_2: this.companynew.address_2,
       t5_country: this.companynew.country,
-      t5_state: this.companynew.state,
+      t5_state: this.companynew.state,  
       t5_city: this.companynew.city,
       t5_zip_pincode: this.companynew.zip_pincode,
       t5_mobile_no: this.companynew.mobile_no,

@@ -178,6 +178,8 @@ export class LoginComponent implements OnInit {
           }
         })
         .catch((error) => {
+          console.log(error);
+          
           if (error.error.message != null) {
             this.errorMessage = error.error.message;
             this.errorMessageView = true;

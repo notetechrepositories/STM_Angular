@@ -204,6 +204,8 @@ export class HomeComponent {
           }
         },
         error:(error)=>{
+          console.log(error);
+          
           this.loadingScreen = false;
           this.statusCode = error.status; 
           if(this.statusCode == 401){
@@ -215,7 +217,7 @@ export class HomeComponent {
               position: "center",
               icon: "error",
               title: "Oops!",
-              text:"Something went wrong.",
+              text:error.error.message,
               showConfirmButton: true
             });
           }
@@ -288,11 +290,12 @@ export class HomeComponent {
             this.logout()
           }
           else{
+            this.isLoading = false;
             Swal.fire({
               position: "center",
               icon: "error",
               title: "Oops!",
-              text:"Something went wrong.",
+              text:error.error.message,
               showConfirmButton: true
             });
           }
@@ -362,11 +365,12 @@ export class HomeComponent {
             this.logout()
           }
           else{
+            this.isLoading = false;
             Swal.fire({
               position: "center",
               icon: "error",
               title: "Oops!",
-              text:"Something went wrong.",
+              text:error.error.message,
               showConfirmButton: true
             });
           }
