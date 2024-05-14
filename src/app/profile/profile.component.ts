@@ -521,7 +521,7 @@ export class ProfileComponent implements OnInit{
             detail: 'Session Terminated',
             life: 3000,
           });
-          // this.getConnectionList();
+          this.getConnectionList();
         }
       },
       error: (error) => {

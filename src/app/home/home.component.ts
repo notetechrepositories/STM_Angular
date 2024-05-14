@@ -50,6 +50,7 @@ export class HomeComponent {
   Errorvisible: boolean = false;
   RetiveDataVisible: boolean = false;
   RetiveAllDataVisible:boolean= false;
+  RetiveDataStructureVisible:boolean= false;
   UpdateDataVisible: boolean = false;
   configDialog: boolean = false;
   submitted: boolean = false;
@@ -1020,6 +1021,52 @@ export class HomeComponent {
       this.isLoading = true;
       
       this.service.generateSpreadsheetForRetrieveAllDetails(this.retrieveDataDatabaseList).subscribe(blob => {
+        this.downloadFile(blob, 'STM_SpreadSheetFiles.zip');
+        this.isLoading = false;
+        
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Downloaded Successfully!",
+          showConfirmButton: false,
+          timer: 3000
+        });
+        this.retrieveDataDatabaseList = [];
+        this.RetiveAllDataVisible = false;
+      },
+       error => {
+        this.messageService.add({ severity: 'error', summary: 'Oops!', detail: 'Something went wrong! Please try again. ', life: 6000 });
+      });
+    }
+    else {
+      this.errorMessage = 'Not found the database and table list';
+      this.warningLabel2 = true;
+    }
+  }
+
+  onretrieveStructureAndData() {
+    this.RetiveDataStructureVisible = true;
+    this.dataRetrieve.Host = '';
+    this.dataRetrieve.Port = '';
+    this.dataRetrieve.Username = '';
+    this.dataRetrieve.Password = '';
+    this.dataRetrieve.DatabaseName = '';
+    this.databaseNameList = [];
+    this.tableName = [];
+    this.dataRetrieve.Table = [];
+    this.verifyButton = true;
+    this.verifyMessage = false;
+    this.retrieveDataDatabaseList = [];
+    this.isBlinking = false;
+    this.warningLabel2 = false;
+    this.errorListBox = false;
+  }
+
+  onGenerateOfStructureAndData(){
+    if (this.retrieveDataDatabaseList.length > 0) {
+      this.isLoading = true;
+      
+      this.service.generateSpreadsheetWithStructureAndData(this.retrieveDataDatabaseList).subscribe(blob => {
         this.downloadFile(blob, 'STM_SpreadSheetFiles.zip');
         this.isLoading = false;
         
