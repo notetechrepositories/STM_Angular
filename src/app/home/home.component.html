@@ -943,15 +943,24 @@
             </div>
 
             <div class="col" style="display: grid;">
-                <label class="form-control-label px-3" style="margin-top: 1px; margin-bottom: 5px;">Table<span
+                <label class="form-control-label px-3" style="margin-top: 1px; margin-bottom: 5px;">Table Structure<span
                         class="text-danger">
                         *</span></label>
                 <p-multiSelect   [options]="tableName" [style]="{ 'width.%': '100' }" name="Table"
                     [(ngModel)]="selectedTableName" [ngClass]="{ 'blink': isBlinking && !dataRetrieve.Table }"
                     (onChange)="onTableSelect($event)"></p-multiSelect >
             </div>
+
+            <div class="col" style="display: grid;">
+                <label class="form-control-label px-3" style="margin-top: 1px; margin-bottom: 5px;">Table Data<span
+                        class="text-danger">
+                        *</span></label>
+                <p-multiSelect   [options]="tableName"  [style]="{ 'width.%': '100' }" name="TableData"
+                    [(ngModel)]="selectedTableNameData" [ngClass]="{ 'blink': isBlinking && !dataRetrieve.Table }"
+                    (onChange)="onTableSelectForData($event)"></p-multiSelect >
+            </div>
             <div style="display: grid; width: 20%;    margin-top: 10px;">
-                <button type="submit" class="btn-block btn-primary" (click)="addToRetrieveDatabaseList()">ADD</button>
+                <button type="submit" class="btn-block btn-primary" (click)="addToRetrieveDatabaseListForStructureAndData()">ADD</button>
             </div>
         </div>
     </form>
@@ -975,7 +984,8 @@
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
                 <th pSortableColumn="name">Database Name <p-sortIcon field="name"></p-sortIcon></th>
-                <th>Tables</th>
+                <th>Tables Structure</th>
+                <th>Tables Data</th>
 
                 <th></th>
             </tr>
@@ -986,7 +996,8 @@
                     <p-tableCheckbox [value]="dbDetails"></p-tableCheckbox>
                 </td>
                 <td>{{ dbDetails.databaseName }}</td>
-                <td>{{ dbDetails.tableName }}</td>
+                <td>{{ dbDetails.structure }}</td>
+                <td>{{ dbDetails.data }}</td>
 
                 <td>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
@@ -998,7 +1009,7 @@
             <div class="flex align-items-center justify-content-between">In total there are {{ retrieveDataDatabaseList
                 ?
                 retrieveDataDatabaseList.length : 0 }} connection.
-                <button type="submit" class="btn-block btn-primary" (click)="onGenerateOfStructureAndData()">Generate
+                <button type="submit" class="btn-block btn-primary" (click)="showRenameDialog()">Generate
                     Excel with S+D</button>
             </div>
             <div class="warning-msg" style="margin: -2px -4px;" *ngIf="warningLabel2">
@@ -1092,6 +1103,18 @@
         
     </form>
 </p-dialog>
+
+<!-- ------------ Rename Dialog ------------- -->
+
+<p-dialog header="Rename File" [(visible)]="RenameDialog" [modal]="true" [style]="{width: '400px'}">
+    <div>
+      <label for="filename">New Filename:</label>
+      <input type="text" pInputText [(ngModel)]="newFileName" id="filename" />
+    </div>
+    <footer>
+      <button pButton type="button" label="Download" icon="pi pi-check" (click)="onGenerateOfStructureAndData()"></button>
+    </footer>
+  </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 

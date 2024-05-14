@@ -51,6 +51,7 @@ export class HomeComponent {
   RetiveDataVisible: boolean = false;
   RetiveAllDataVisible:boolean= false;
   RetiveDataStructureVisible:boolean= false;
+  RenameDialog:boolean=false;
   UpdateDataVisible: boolean = false;
   configDialog: boolean = false;
   submitted: boolean = false;
@@ -69,13 +70,16 @@ export class HomeComponent {
   database: any[] = [];
   databaseNameList: any[] = [];
   retrieveDataDatabaseList: any[] = [];
+  DatabaseListStructureAndData: any[] = [];
   finalList: any[] = [];
   tableName: string[] = [];
   dbTableList: any = [];
   selectedTableName: any[] = [];
+  selectedTableNameData: any[] = [];
   selectedConfiguration!: any[] | null;
   selectedDbAndTableList!: any[] | null;
 
+  newFileName: string = '';
   host: string = '';   
   port: string = '';
   errorMessage: string = "";
@@ -824,6 +828,7 @@ export class HomeComponent {
   }
 
 
+
   onRetrieveStructure() {
     this.RetiveDataVisible = true;
     this.dataRetrieve.Host = '';
@@ -904,11 +909,17 @@ export class HomeComponent {
     const dbName = event.value;
     this.selectedDatabaseName = dbName;
     this.tableName = this.database[dbName];
+    this.selectedTableName=this.tableName;
+    this.selectedTableNameData=this.tableName;
   }
 
 
   onTableSelect(event: any) {
     this.selectedTableName = event.value;
+  }
+
+  onTableSelectForData(event: any) {
+    this.selectedTableNameData = event.value;
   }
 
 
@@ -931,6 +942,36 @@ export class HomeComponent {
         this.retrieveDataDatabaseList.push(convertedConfig);
         this.retrieveDataDatabaseList = [...this.retrieveDataDatabaseList];
         this.dataTable.first=0;
+      }
+    }
+    else {
+      this.isBlinking = true;
+    }
+  }
+
+  addToRetrieveDatabaseListForStructureAndData() {
+    if (this.selectedTableName.length > 0) {
+      const convertedConfig = {
+        id: Math.floor(Math.random() * 100),
+        host: this.dataRetrieve.Host,
+        port: this.dataRetrieve.Port,
+        username: this.dataRetrieve.Username,
+        password: this.dataRetrieve.Password,
+        databaseName: this.selectedDatabaseName,
+        structure: this.selectedTableName,
+        data:this.selectedTableNameData
+      }
+      console.log(convertedConfig);
+      
+      const existingConfig = this.retrieveDataDatabaseList.find(config => config.databaseName === convertedConfig.databaseName);
+      if (existingConfig) {
+        existingConfig.data = convertedConfig.data;
+      }
+      else {
+        this.retrieveDataDatabaseList.push(convertedConfig);
+        console.log(this.retrieveDataDatabaseList);
+        this.retrieveDataDatabaseList = [...this.retrieveDataDatabaseList];
+        // this.dataTable.first=0;
       }
     }
     else {
@@ -1062,14 +1103,16 @@ export class HomeComponent {
     this.errorListBox = false;
   }
 
-  onGenerateOfStructureAndData(){
+
+  onGenerateOfStructureAndData() {
     if (this.retrieveDataDatabaseList.length > 0) {
       this.isLoading = true;
-      
+      this.RenameDialog = false; 
+
       this.service.generateSpreadsheetWithStructureAndData(this.retrieveDataDatabaseList).subscribe(blob => {
-        this.downloadFile(blob, 'STM_SpreadSheetFiles.zip');
+        this.downloadFile(blob, this.newFileName);
         this.isLoading = false;
-        
+
         Swal.fire({
           position: "center",
           icon: "success",
@@ -1089,6 +1132,7 @@ export class HomeComponent {
       this.warningLabel2 = true;
     }
   }
+
 
 
   onUpdateClick() {
@@ -1135,6 +1179,10 @@ export class HomeComponent {
     );
   }
 
+  showRenameDialog(){
+    this.newFileName = 'STM_SpreadSheetFiles.zip'; // Default name
+    this.RenameDialog = true;
+  }
 
   private downloadFile(data: Blob, filename: string) {
     const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
