@@ -946,8 +946,8 @@
                 <label class="form-control-label px-3" style="margin-top: 1px; margin-bottom: 5px;">Table Structure<span
                         class="text-danger">
                         *</span></label>
-                <p-multiSelect   [options]="tableName" [style]="{ 'width.%': '100' }" name="Table"
-                    [(ngModel)]="selectedTableName" [ngClass]="{ 'blink': isBlinking && !dataRetrieve.Table }"
+                <p-multiSelect   [options]="tableName" [filter]="true" filterBy="label" [style]="{ 'width.%': '100' }" name="Table"
+                    [(ngModel)]="selectedTableNameStructure" [ngClass]="{ 'blink': isBlinking && !dataRetrieve.Table }"
                     (onChange)="onTableSelect($event)"></p-multiSelect >
             </div>
 
