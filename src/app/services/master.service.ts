@@ -91,6 +91,17 @@ export class MasterService {
     responseType: 'blob'});
   }
 
+  generateSpreadsheetWithStructureAndData(data:any):Observable<Blob>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'Authorization': `Bearer ${this.accessToken}`
+    });
+    return this.http.post("http://192.168.0.116:3241/api/Generate_SpreadSheet_For_Retrieve_Table_Structure_And_Data", data,
+    {headers: headers,
+    responseType: 'blob'});
+  }
+
   generateSpreadsheetForUpdateData(data:any):Observable<Blob>{
     console.log(data);
     
