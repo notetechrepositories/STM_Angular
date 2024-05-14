@@ -72,10 +72,11 @@ export class HomeComponent {
   retrieveDataDatabaseList: any[] = [];
   DatabaseListStructureAndData: any[] = [];
   finalList: any[] = [];
-  tableName: string[] = [];
+  tableName: any[] = [];
   dbTableList: any = [];
   selectedTableName: any[] = [];
   selectedTableNameData: any[] = [];
+  selectedTableNameStructure: any[] = [];
   selectedConfiguration!: any[] | null;
   selectedDbAndTableList!: any[] | null;
 
@@ -201,7 +202,6 @@ export class HomeComponent {
             }
           }
           else {
-            // console.error('Error retrieving database configurations:', fileres.message);
             this.responseMessage = fileres.message;
             this.isLoading = false;
             this.warningLabel = false;
@@ -905,17 +905,19 @@ export class HomeComponent {
   onDatabaseSelect(event: any) {
     this.tableName = [];
     this.selectedTableName = [];
+    this.selectedTableNameStructure=[];
+    this.selectedTableNameData=[];
     this.dataRetrieve.Table = [];
     const dbName = event.value;
     this.selectedDatabaseName = dbName;
     this.tableName = this.database[dbName];
-    this.selectedTableName=this.tableName;
+    this.selectedTableNameStructure=this.tableName;
     this.selectedTableNameData=this.tableName;
   }
 
 
   onTableSelect(event: any) {
-    this.selectedTableName = event.value;
+    this.selectedTableNameStructure = event.value; 
   }
 
   onTableSelectForData(event: any) {
@@ -950,7 +952,7 @@ export class HomeComponent {
   }
 
   addToRetrieveDatabaseListForStructureAndData() {
-    if (this.selectedTableName.length > 0) {
+    if (this.selectedTableNameStructure.length > 0) {
       const convertedConfig = {
         id: Math.floor(Math.random() * 100),
         host: this.dataRetrieve.Host,
@@ -958,7 +960,7 @@ export class HomeComponent {
         username: this.dataRetrieve.Username,
         password: this.dataRetrieve.Password,
         databaseName: this.selectedDatabaseName,
-        structure: this.selectedTableName,
+        structure: this.selectedTableNameStructure,
         data:this.selectedTableNameData
       }
       console.log(convertedConfig);
@@ -971,7 +973,6 @@ export class HomeComponent {
         this.retrieveDataDatabaseList.push(convertedConfig);
         console.log(this.retrieveDataDatabaseList);
         this.retrieveDataDatabaseList = [...this.retrieveDataDatabaseList];
-        // this.dataTable.first=0;
       }
     }
     else {
