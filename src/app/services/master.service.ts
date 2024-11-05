@@ -20,15 +20,15 @@ export class MasterService {
  });
 
   getDataConfiguration(excelFile:any): Observable<string>{
-    return this.http.post<any>("http://59.94.176.2:3241/api/Extract_Database_Configuration_From_SpreadSheet",excelFile,{headers:this.headers});
+    return this.http.post<any>(`${this.url}Extract_Database_Configuration_From_SpreadSheet`,excelFile,{headers:this.headers});
   }
 
   verifyConfiguration(excelData: any) {
-    return this.http.post<any>("http://59.94.176.2:3241/api/Verify_Database_Configuration",excelData,{headers:this.headers});
+    return this.http.post<any>(`${this.url}Verify_Database_Configuration`,excelData,{headers:this.headers});
   }
 
   retrieveSchema(data:any){
-    return this.http.post<any>("http://59.94.176.2:3241/api/retrieve_schema",data,{headers:this.headers});
+    return this.http.post<any>(`${this.url}retrieve_schema`,data,{headers:this.headers});
   }
   
   convertExcel(file:any, configList:any){
@@ -36,7 +36,7 @@ export class MasterService {
     formData.append('excelFile',file);
     formData.append('databaseConfigList',JSON.stringify(configList))
     console.log(formData);
-    return this.http.post<any>("http://59.94.176.2:3241/api/Create_Schemas_From_SpreadSheet",formData,{headers:this.headers});
+    return this.http.post<any>(`${this.url}Create_Schemas_From_SpreadSheet`,formData,{headers:this.headers});
   }
 
   addTable(file:any, configList:any){
@@ -44,7 +44,7 @@ export class MasterService {
     formData.append('excelFile',file);
     formData.append('databaseConfigList',JSON.stringify(configList))
     console.log(formData);
-    return this.http.post<any>("http://59.94.176.2:3241/api/Add_Tables_To_Existed_Schemas_From_SpreadSheet",formData,{headers:this.headers});
+    return this.http.post<any>(`${this.url}Add_Tables_To_Existed_Schemas_From_SpreadSheet`,formData,{headers:this.headers});
   }
 
   addField(file:any, configList:any){
@@ -52,7 +52,7 @@ export class MasterService {
     formData.append('excelFile',file);
     formData.append('databaseConfigList',JSON.stringify(configList))
     console.log(formData);
-    return this.http.post<any>("http://59.94.176.2:3241/api/Add_Fields_To_Existed_Schemas_From_SpreadSheet",formData,{headers:this.headers});
+    return this.http.post<any>(`${this.url}Add_Fields_To_Existed_Schemas_From_SpreadSheet`,formData,{headers:this.headers});
   }
 
   generateExcelforCreation(): Observable<Blob> {
@@ -61,7 +61,7 @@ export class MasterService {
       'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Authorization': `Bearer ${this.accessToken}`
     });
-    return this.http.get('http://59.94.176.2:3241/api/Generate_SpreadSheet_For_Creation', {
+    return this.http.get(`${this.url}Generate_SpreadSheet_For_Creation`, {
       headers: headers,
       responseType: 'blob'
     });
@@ -74,7 +74,7 @@ export class MasterService {
       'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Authorization': `Bearer ${this.accessToken}`
     });
-    return this.http.post("http://59.94.176.2:3241/api/Generate_SpreadSheet_For_Retrieve_TableFields_Details", data,
+    return this.http.post(`${this.url}Generate_SpreadSheet_For_Retrieve_TableFields_Details`, data,
     {headers: headers,
     responseType: 'blob'});
   }
@@ -86,7 +86,7 @@ export class MasterService {
       'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Authorization': `Bearer ${this.accessToken}`
     });
-    return this.http.post("http://59.94.176.2:3241/api/Generate_SpreadSheet_For_Retrieve_TableFields_With_Data", data,
+    return this.http.post(`${this.url}Generate_SpreadSheet_For_Retrieve_TableFields_With_Data`, data,
     {headers: headers,
     responseType: 'blob'});
   }
@@ -97,7 +97,7 @@ export class MasterService {
       'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Authorization': `Bearer ${this.accessToken}`
     });
-    return this.http.post("http://192.168.0.116:3241/api/Generate_SpreadSheet_For_Retrieve_Table_Structure_And_Data", data,
+    return this.http.post(`${this.url}Generate_SpreadSheet_For_Retrieve_Table_Structure_And_Data`, data,
     {headers: headers,
     responseType: 'blob'});
   }
@@ -110,7 +110,7 @@ export class MasterService {
       'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Authorization': `Bearer ${this.accessToken}`
     });
-    return this.http.post("http://59.94.176.2:3241/api/Generate_SpreadSheet_For_Updation", data,
+    return this.http.post(`${this.url}Generate_SpreadSheet_For_Updation`, data,
     {headers: headers,
     responseType: 'blob'});
   }
@@ -127,15 +127,15 @@ export class MasterService {
   }
 
     getAuthorizedUserDetails(){
-      return this.http.get<any>(`http://59.94.176.2:3241/api/User/details/authorize-user`,{ headers:this.headers })  //All User(company_admin,company_user)
+      return this.http.get<any>(`${this.url}User/details/authorize-user`,{ headers:this.headers })  //All User(company_admin,company_user)
     }
 
     logout(id:any){
-      return this.http.post<any>(`http://59.94.176.2:3241/api/Authentication/logout?connectionId=${id}`,{},{headers:this.headers})
+      return this.http.post<any>(`${this.url}Authentication/logout?connectionId=${id}`,{},{headers:this.headers})
     }
 
     getConnectionList(){
-            return this.http.get<any>(`http://59.94.176.2:3241/api/Authentication/getConnectionList`,{headers:this.headers})
+            return this.http.get<any>(`${this.url}Authentication/getConnectionList`,{headers:this.headers})
     }
 
  

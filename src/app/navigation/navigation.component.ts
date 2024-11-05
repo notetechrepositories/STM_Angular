@@ -94,6 +94,10 @@ export class NavigationComponent {
 
   }
 
+  goToHome(){
+    this.router.navigate(['/home'])
+  }
+
   loadData(){
     this.getAuthorizedUserData();
     this.userType=localStorage.getItem('userType');

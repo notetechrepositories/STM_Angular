@@ -1,61 +1,49 @@
 <main *ngIf="navigationView">
-
-    <nav class="navbar-container" >
-        <div class="logo-container">
-            <img src="assets\images\STMlogo3.png" alt="" class="site-logo" >
-            <img src="assets\images\NOTETECH LOGO 1 (1).png" alt="" class="logo" >
-        </div>
-        <div class="toggle-bars" (click)="toggleNavMenu()">
-            <div class="togglebar"></div>
-            <div class="togglebar"></div>
-            <div class="togglebar"></div>
-        </div>
-        <ul class="navmenu-items" [ngClass]="{'active': isNavMenuActive}" id="profile-accordion">
-            <li class="nav-link"><a routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" *ngIf="HomeTab">Home</a></li>
-            <li class="nav-link"><a routerLink="/tutorial-page" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" *ngIf="HowItsWorkTab">How It Works</a></li>
+  <div class="navbar-container d-flex justify-content-center">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="logo-container cursor-pointer" (click)="goToHome()">
+          <img src="assets\images\STMlogo3.png" alt="" class="site-logo" width="100" >
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mt-2 mb-2">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/home" *ngIf="HomeTab">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/tutorial-page" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" *ngIf="HowItsWorkTab">How It Works</a>
+          </li>
+          <li class="nav-item">
             <div class="login-register" *ngIf="AddEmployeeButton">
-                <a class="button" (click)="onAddEmployeeButton()"> <i class='bx bx-plus' ></i> ADD EMPLOYEE</a>
-                <a class="button" (click)="onUserListButton()"> USERS LIST</a>
+              <a class="button" (click)="onAddEmployeeButton()"> <i class='bx bx-plus' ></i> ADD EMPLOYEE</a>
+              <a class="button" (click)="onUserListButton()"> USERS LIST</a>
             </div>
-            <!-- <li (click)="logout()">
-                <i class="bx bx-log-out" style="font-size:30px; color:#009182;font-weight: 300;"></i>
-            </li> -->
-            <li>
-                <label for="profile">
-                    <i class="profileIcon fa-solid fa-user" style="  margin:0 5px;
-                    background-color:#008774;
-                    color:white;
-                    border-radius: 50%;
-                    text-align: center;
-                    padding:10px;"></i>
-                    
-                  </label>
-                  <input type="checkbox" name="profile-accordion" id="profile">
-                  <div class="profile-menu-wrap">
-                    <div class="profile-menu">
-                      <div class="menu-link">
-                        <a routerLink="/profile" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" id="editProfileLink">
-                          <i class="fa-solid fa-user"></i>
-                          <h4> Edit Profile </h4>
-                        </a>
-                        <!-- <a href="#"> 
-                          <i class="fa-solid fa-gear"></i>
-                          <h4> Settings </h4>
-                        </a>
-                        <a href="#">
-                          <i class="fa-solid fa-circle-info"></i>
-                          <h4> Help & Support </h4>
-                        </a> -->
-                        <a (click)="logout()">
-                          <i class="fa-solid fa-right-from-bracket"></i>
-                          <h4> LogOut </h4>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-              </li>
+          </li>
+          <li class="nav-item dropdown float-right">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa-solid fa-user" 
+                        style="align-content: center;
+                        height: 30px;
+                        width: 30px;
+                        background-color: #009182;
+                        color: white;
+                        border-radius: 50%;
+                        text-align: center;
+                        padding: 8px;">
+              </i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" routerLink="/profile" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><i class="fa-solid fa-user"></i> Profile</a>
+              <a class="dropdown-item" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i> LogOut</a>
+            </div>
+          </li>
         </ul>
+      </div>
     </nav>
+  </div>
+
 
 <div class="wrapper" style="min-height: 789px;">
     

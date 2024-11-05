@@ -9,7 +9,7 @@ import { LoginService } from '../login/login.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { NavigationService } from '../navigation/navigation.service';
-import { SignalRService } from '../services/signal-r.service';
+// import { SignalRService } from '../services/signal-r.service';
 
 
 @Component({
@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit{
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private navigationService: NavigationService,
-    private signalRService:SignalRService,
+    // private signalRService:SignalRService,
     private router: Router,
     private fb: FormBuilder
   ) {}
@@ -488,15 +488,15 @@ export class ProfileComponent implements OnInit{
     });
   }
 
-  deviceList: any[] = [];
+  // deviceList: any[] = [];
 
-  getLoginDeviceList(){
+  // getLoginDeviceList(){
 
-    this.signalRService.startConnection().then(() => {
-        console.log('Connection established with ID:', this.signalRService.getConnectionId());
-     });
+  //   this.signalRService.startConnection().then(() => {
+  //       console.log('Connection established with ID:', this.signalRService.getConnectionId());
+  //    });
   
-  }
+  // }
   
 
   private extractBrowserInfo(userAgent: string): string {

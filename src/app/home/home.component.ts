@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import { Table } from 'primeng/table';
 import { ViewChild } from '@angular/core';
 import { NavigationService } from '../navigation/navigation.service';
-import { SignalRService } from '../services/signal-r.service';
+// import { SignalRService } from '../services/signal-r.service';
 import { Subscription } from 'rxjs';
 
 
@@ -104,7 +104,7 @@ export class HomeComponent {
               private messageService: MessageService,
               private confirmationService: ConfirmationService,
               private navigationService:NavigationService,
-              private signalRService:SignalRService,
+              // private signalRService:SignalRService,
               private router: Router) { }
 
 
@@ -124,9 +124,9 @@ export class HomeComponent {
   loadData() {
     this.userType = localStorage.getItem('userType');
     this.connectionId=localStorage.getItem('connectionId');
-    this.signalRService.startConnection().then(() => {
-      console.log('Connection established with ID:', this.signalRService.getConnectionId());
-    });
+    // this.signalRService.startConnection().then(() => {
+    //   console.log('Connection established with ID:', this.signalRService.getConnectionId());
+    // });
 
     if(this.statusCode==401){
       this.logout();
@@ -338,11 +338,15 @@ export class HomeComponent {
       const formData = new FormData();
       formData.append('excelFile', this.selectedFile);
       this.isLoading = true;
+      console.log(this.selectedFile);
+      
       this.service.getDataConfiguration(formData).subscribe({
         next:   (fileres: any) => {
           if (fileres.status === 200) {
             this.isLoading = false;
             this.AddFieldvisible = true;
+            
+            
             this.dataConfig = fileres;
             this.dataConfig_list = Object.values(fileres);
             this.portname = [];
@@ -544,6 +548,7 @@ export class HomeComponent {
 
   convertExcelData() {
     if (this.selectedFile && this.finalList != null) {
+      this.visible = false;
       this.loadingScreen = true;
       this.service.convertExcel(this.selectedFile, this.finalList).subscribe({
         next:(convertResponse: any) => {
@@ -917,10 +922,12 @@ export class HomeComponent {
 
 
   onTableSelect(event: any) {
-    this.selectedTableNameStructure = event.value; 
-  }
+    this.selectedTableName = event.value;
+    this.selectedTableNameStructure = event.value;
+  } 
 
   onTableSelectForData(event: any) {
+
     this.selectedTableNameData = event.value;
   }
 
@@ -943,7 +950,6 @@ export class HomeComponent {
       else {
         this.retrieveDataDatabaseList.push(convertedConfig);
         this.retrieveDataDatabaseList = [...this.retrieveDataDatabaseList];
-        this.dataTable.first=0;
       }
     }
     else {
@@ -952,7 +958,7 @@ export class HomeComponent {
   }
 
   addToRetrieveDatabaseListForStructureAndData() {
-    if (this.selectedTableNameStructure.length > 0) {
+    if (this.selectedTableNameStructure.length > 0 || this.selectedTableNameData.length>0) {
       const convertedConfig = {
         id: Math.floor(Math.random() * 100),
         host: this.dataRetrieve.Host,
@@ -1078,6 +1084,7 @@ export class HomeComponent {
       },
        error => {
         this.messageService.add({ severity: 'error', summary: 'Oops!', detail: 'Something went wrong! Please try again. ', life: 6000 });
+        this.isLoading = false;
       });
     }
     else {
@@ -1102,7 +1109,10 @@ export class HomeComponent {
     this.isBlinking = false;
     this.warningLabel2 = false;
     this.errorListBox = false;
+    this.selectedTableNameData =[];
+    this.selectedTableNameStructure = [];
   }
+
 
 
   onGenerateOfStructureAndData() {
@@ -1125,12 +1135,14 @@ export class HomeComponent {
         this.RetiveAllDataVisible = false;
       },
        error => {
+        this.isLoading = false;
         this.messageService.add({ severity: 'error', summary: 'Oops!', detail: 'Something went wrong! Please try again. ', life: 6000 });
       });
     }
     else {
       this.errorMessage = 'Not found the database and table list';
       this.warningLabel2 = true;
+      this.isLoading = false;  
     }
   }
 

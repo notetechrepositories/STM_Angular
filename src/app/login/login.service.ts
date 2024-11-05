@@ -8,6 +8,7 @@ export class LoginService {
 
   constructor(private http:HttpClient) { }
 
+  url="http://59.94.176.2:3241/api/"; 
 
   accessToken = localStorage.getItem('accessToken'); 
   headers = new HttpHeaders({
@@ -16,7 +17,7 @@ export class LoginService {
   
   
 login(data:any){
-  return this.http.post<any>("http://59.94.176.2:3241/api/Authentication/login",data);
+  return this.http.post<any>(`${this.url}Authentication/login`,data);
 }
 
 resetPin(data:any){
@@ -24,7 +25,7 @@ resetPin(data:any){
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${accessToken}`
   });
-  return this.http.post<any>("http://59.94.176.2:3241/api/Authentication/reset_pin_after_login",data,{ headers:headers });
+  return this.http.post<any>(`${this.url}Authentication/reset_pin_after_login`,data,{ headers:headers });
 }
 
 
