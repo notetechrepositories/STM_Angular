@@ -51,6 +51,43 @@
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   z-index: 9999; /* High z-index to ensure it sits on top of other content */
 }
+/* .loading-container{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00a97f;
+  z-index: 2;
+}
+.loading-window{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+.loading-container {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.219); 
+  z-index: 1000; 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+.loading-window {
+  position: relative;
+  transform: translate(0%, -15%);
+  width: auto;
+  height: auto;
+  z-index: 2;
+}
+
 
 /* ======================================  SECTION 1 ========================================= */
 

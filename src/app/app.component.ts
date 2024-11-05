@@ -103,6 +103,7 @@ logout() {
         });
       },
       error: error => {
+        
       }
     });
   }

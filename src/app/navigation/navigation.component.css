@@ -25,8 +25,6 @@ input:focus{
   outline: none;
 }
 
-
-
 .button-container{
   display: flex;
   justify-content: center;
@@ -61,11 +59,49 @@ input:focus{
   box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
   transform: translateY(-2px);
 }
+.logo-container{
+  padding:10px
+}
+.navbar{
+  padding-right: 10px;
+  background-color: #e7f9f7;
+  width: 98.5%;
+  position: fixed;
+  border-radius: 10px;
+}
+.nav-link{
+    font-size: 16px;
+    color: #03a38e;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.nav-item{
+  margin-left: 17px;
+}
+.navbar-collapse{
+  margin-left: 15px;
+  justify-content: flex-end;
+}
+.dropdown-menu{
+  margin-left: -80px;
+}
+.dropdown-toggle{
+  margin-top: -5px;
+}
+.dropdown-item {
+  font-weight: 400;
+  color: #048b7d;
+}
+.dropdown-item:hover {
+  color: #cee9e5;
+  background-color: #048b7d;
+}
 
 @media (min-width: 768px) {
   .button-37 {
     padding: 10px 30px;
   }
+
 }
 
 .logo-login{
@@ -165,73 +201,8 @@ footer p{
 .trash-button:hover{
   background  : rgb(224, 3, 3); 
 }
-
-
-/* =================================== */
-/* .profile-menu-wrap {
-  position: absolute;
-  top: 115%;
-  right: 0%;
-  width: 239px;
-  background-color: #78ddd6fb;
-  color: #008774;
-  font-weight: 300;
-  max-height: 0;
-  border-radius: 15px;
-  border: 1px groove #01dbbed0;
-  overflow: hidden;
-  transition: max-height 0.6s cubic-bezier(0.4, 0, 1, 1);
-  opacity: 0;
-}
-
-.profile-menu-wrap:before {
-  content: '';
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  background-color: inherit;
-  top: -5px;
-  transform: rotate(45deg);
-  right: 15px;
-  z-index: 5;
-}
-
-input[type="checkbox"] {
-  display: none;
-}
-
-input[type="checkbox"]:checked + .profile-menu-wrap .profile-menu {
-  max-height: 90vh;
-  display: block;
-} */
-
-.profile-menu-wrap {
-  position: absolute;
-  top: 115%;
-  right: 0%;
-  width: 240px; /* Adjust the width as needed */
-  background-color: #e4fffc;
-  color: #008774;
-  font-weight: 300;
-  border-radius: 15px;
-  border: 1px groove #01dbbed0;
-  overflow: hidden;
-  display: none;
-  max-height: 0;
-  transition: max-height 0.9s cubic-bezier(0.4, 0, 1, 1);
-}
-
-input[type="checkbox"] {
-  display: none;
-}
-
-input[type="checkbox"]:checked + .profile-menu-wrap {
-  display: block;
-  max-height: 70vh;
-}
-
-
- .profile-menu-wrap img{
+/* ======================================== */
+ /* .profile-menu-wrap img{
   object-fit: cover;
   width:80px;
   height: 80px;
@@ -298,7 +269,7 @@ input[type="checkbox"]:checked + .profile-menu-wrap {
   font-size: 15px;
   padding-top: 7px;
   color: #008774;
-}
+} */
 
 @media (max-width: 600px) {
   
@@ -308,6 +279,10 @@ input[type="checkbox"]:checked + .profile-menu-wrap {
 }
 .tutorial-img img {
   width:100%;
+}
+.dropdown-menu{
+  margin-left: 28px;
+  width: 30%;
 }
 }
 

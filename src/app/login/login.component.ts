@@ -12,7 +12,7 @@ import { LoginService } from './login.service';
 import { LoginModel } from '../model/LoginModel';
 import Swal from 'sweetalert2';
 import { CompanyService } from '../services/company.service';
-import { SignalRService } from '../services/signal-r.service';
+// import { SignalRService } from '../services/signal-r.service';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   LoginangRegistration: boolean = true;
   signUpForm!: FormGroup;
-  company: CompanyModel = new CompanyModel();
+   company: CompanyModel = new CompanyModel();
   loginModel: LoginModel = new LoginModel();
   errorMessage!: string;
   errorMessageView: boolean = false;
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     private service: MasterService,
     private loginService: LoginService,
     private companyService: CompanyService,
-    private signalRService: SignalRService
+    // private signalRService: SignalRService
   ) {}
 
   ngOnInit() {
@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
     this.isLoggeddIn = localStorage.getItem('accessToken') != null;
     this.userType = localStorage.getItem('userType');
     this.connectionId = localStorage.getItem('connectionId');
-    this.signalRService.startConnection();
+    // this.signalRService.startConnection();
   }
 
   inputboxClick(event: any) {
@@ -150,89 +150,89 @@ export class LoginComponent implements OnInit {
       (this.loginModel.t6_email || this.loginModel.t6_mobile_no) != '' &&
       this.loginModel.t6_login_pin != ''
     ) {
-      this.signalRService.invokeLoginSignalR(this.loginModel)
-        .then((res) => {
+      // this.signalRService.invokeLoginSignalR(this.loginModel)
+      //   .then((res) => {
          
           
-          if (res.status == 200) {
-            this.isLoading = false;
-            this.accessToken = res.data.access_Token;
-            localStorage.setItem('userType', res.data.user);
-            localStorage.setItem('accessToken', this.accessToken);
-            localStorage.setItem('pinUpdatedStatus', res.data.pin_updated);
-            localStorage.setItem('connectionId', res.data.connection_id);
+      //     if (res.status == 200) {
+      //       this.isLoading = false;
+      //       this.accessToken = res.data.access_Token;
+      //       localStorage.setItem('userType', res.data.user);
+      //       localStorage.setItem('accessToken', this.accessToken);
+      //       localStorage.setItem('pinUpdatedStatus', res.data.pin_updated);
+      //       localStorage.setItem('connectionId', res.data.connection_id);
 
-            if (res.data.pin_updated == 'y') {
-              this.router.navigateByUrl('/home').then(() => {
-                window.location.reload();
-              });
-              this.ResetPin = false;
-            } else {
-              this.LoginangRegistration = false;
-              this.ResetPin = true;
-            }
-          } else {
-            this.errorMessage =res.message;
-            this.errorMessageView = true;
-            this.isLoading = false;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
+      //       if (res.data.pin_updated == 'y') {
+      //         this.router.navigateByUrl('/home').then(() => {
+      //           window.location.reload();
+      //         });
+      //         this.ResetPin = false;
+      //       } else {
+      //         this.LoginangRegistration = false;
+      //         this.ResetPin = true;
+      //       }
+      //     } else {
+      //       this.errorMessage =res.message;
+      //       this.errorMessageView = true;
+      //       this.isLoading = false;
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
           
-          if (error.error.message != null) {
-            this.errorMessage = error.error.message;
-            this.errorMessageView = true;
-            this.isLoading = false;
-          } else {
-            this.errorMessage = 'Something went wrong! Please try Again.';
-            this.errorMessageView = true;
-            this.isLoading = false;
-          }
-        });
+      //     if (error.error.message != null) {
+      //       this.errorMessage = error.error.message;
+      //       this.errorMessageView = true;
+      //       this.isLoading = false;
+      //     } else {
+      //       this.errorMessage = 'Something went wrong! Please try Again.';
+      //       this.errorMessageView = true;
+      //       this.isLoading = false;
+      //     }
+      //   });
 
 
 
-    //    this.loginService.login(this.loginModel).subscribe({
-    //   next: (res) => {
-    //     if(res.status==200){
+       this.loginService.login(this.loginModel).subscribe({
+      next: (res) => {
+        if(res.status==200){
          
-    //       this.isLoading=false;
-    //       this.accessToken=res.data.access_Token;
-    //       localStorage.setItem('userType',res.data.user);
-    //       localStorage.setItem('accessToken',this.accessToken);
-    //       localStorage.setItem('pinUpdatedStatus',res.data.pin_updated);
-    //       localStorage.setItem('connectionId',res.data.connection_id);
+          this.isLoading=false;
+          this.accessToken=res.data.access_Token;
+          localStorage.setItem('userType',res.data.user);
+          localStorage.setItem('accessToken',this.accessToken);
+          localStorage.setItem('pinUpdatedStatus',res.data.pin_updated);
+          localStorage.setItem('connectionId',res.data.connection_id);
 
-    //       if(res.data.pin_updated=="y"){
-    //         this.router.navigateByUrl('/home').then(() => {
-    //           window.location.reload();
-    //         });
-    //         this.ResetPin=false;
-    //       }
-    //       else{
-    //        this.LoginangRegistration=false;
-    //        this.ResetPin=true;
-    //       }
-    //     }
-    //     else{
-    //       this.errorMessage=res.message;
-    //       this.isLoading=false;
-    //     }
-    //   }, 
-    //   error: (error) => {
-    //     if(error.error.message!=null){
-    //       this.errorMessage=error.error.message;
-    //       this.errorMessageView=true;
-    //       this.isLoading=false;
-    //     }
-    //     else{
-    //       this.errorMessage="Something went wrong! Please try Again.";
-    //       this.errorMessageView=true;
-    //       this.isLoading=false;
-    //     }
-    //   }
-    // });
+          if(res.data.pin_updated=="y"){
+            this.router.navigateByUrl('/home').then(() => {
+              window.location.reload();
+            });
+            this.ResetPin=false;
+          }
+          else{
+           this.LoginangRegistration=false;
+           this.ResetPin=true;
+          }
+        }
+        else{
+          this.errorMessage=res.message;
+          this.isLoading=false;
+        }
+      }, 
+      error: (error) => {
+        if(error.error.message!=null){
+          this.errorMessage=error.error.message;
+          this.errorMessageView=true;
+          this.isLoading=false;
+        }
+        else{
+          this.errorMessage="Something went wrong! Please try Again.";
+          this.errorMessageView=true;
+          this.isLoading=false;
+        }
+      }
+    });
     
   
   } else {

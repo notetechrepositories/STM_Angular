@@ -101,6 +101,37 @@
     <p-progressSpinner></p-progressSpinner>
 </div>
 
+    <!--------------- Convert loading screen -------------->
+    <div class="loading-container" *ngIf="loadingScreen">
+        <div class="loading-window" >
+            <div class="file-transfer">
+                <iframe src="https://lottie.host/embed/3f4b54f2-13f6-45d4-88f0-06526049e0e7/Js24gUMuMd.json"
+                    style="height: 207px"></iframe>
+            </div>
+            <div class="excel-file">
+                <iframe src="https://lottie.host/embed/7210d08c-d018-4750-aa95-28e2ab95ac3b/MoXZSHZ3Fo.json"
+                    style="width: 93px;margin-top: 19px;"></iframe>
+            </div>
+            <div class="mysql-logo">
+                <iframe src="https://lottie.host/embed/777a19a9-19b3-4894-8446-b3ad11cc1b69/utP1JczqKD.json"
+                    style="margin-top: -10px;margin-left: -6px;"></iframe>
+            </div>
+            <div class="text-load">
+                <div class="text">Converting &nbsp;
+                    <div class="waviy">
+                        <span style="--i:11">.</span>
+                        <span style="--i:12">.</span>
+                        <span style="--i:13">.</span>
+                    </div>
+                </div>
+                <div class="loading">
+                    <iframe src="https://lottie.host/embed/90f3cc6b-c0a9-49b1-b523-2ad85a8d9f40/ZfzTkZkmpB.json"
+                        style="margin-top: -110px;"></iframe>
+                </div>
+            </div>
+        </div> 
+    </div>
+
 <!-- <div class="went-wrong" *ngIf="wentwrongerror">
     <div class="error-card">
         <p>Oops! Something Went Wrong</p>
@@ -240,37 +271,10 @@
 
         </p-table>
     </div>
-
-    <!--------------- Convert loading screen -------------->
-
-    <div *ngIf="loadingScreen">
-        <div class="file-transfer">
-            <iframe src="https://lottie.host/embed/3f4b54f2-13f6-45d4-88f0-06526049e0e7/Js24gUMuMd.json"
-                style="height: 207px"></iframe>
-        </div>
-        <div class="excel-file">
-            <iframe src="https://lottie.host/embed/7210d08c-d018-4750-aa95-28e2ab95ac3b/MoXZSHZ3Fo.json"
-                style="width: 93px;margin-top: 19px;"></iframe>
-        </div>
-        <div class="mysql-logo">
-            <iframe src="https://lottie.host/embed/777a19a9-19b3-4894-8446-b3ad11cc1b69/utP1JczqKD.json"
-                style="margin-top: -10px;margin-left: -6px;"></iframe>
-        </div>
-        <div class="text-load">
-            <div class="text">Converting &nbsp;
-                <div class="waviy">
-                    <span style="--i:11">.</span>
-                    <span style="--i:12">.</span>
-                    <span style="--i:13">.</span>
-                </div>
-            </div>
-            <div class="loading">
-                <iframe src="https://lottie.host/embed/90f3cc6b-c0a9-49b1-b523-2ad85a8d9f40/ZfzTkZkmpB.json"
-                    style="margin-top: -110px;"></iframe>
-            </div>
-        </div>
-    </div> 
 </p-dialog>
+
+
+
 
 <!-------------------------- Error Message screen ------------------->
 
@@ -408,7 +412,7 @@
 
         <!--------------- Convert loading screen -------------->
 
-        <div *ngIf="loadingScreen">
+        <!-- <div *ngIf="loadingScreen">
             <div class="file-transfer">
                 <iframe src="https://lottie.host/embed/3f4b54f2-13f6-45d4-88f0-06526049e0e7/Js24gUMuMd.json"
                     style="height: 207px"></iframe>
@@ -436,7 +440,7 @@
             </div>
         </div>
         
-</p-dialog>
+</p-dialog> -->
 
 <!--========= Add field popup =========-->
 
@@ -559,7 +563,7 @@
 
     <!--------------- Convert loading screen -------------->
 
-    <div *ngIf="loadingScreen">
+    <!-- <div *ngIf="loadingScreen">
         <div class="file-transfer">
             <iframe src="https://lottie.host/embed/3f4b54f2-13f6-45d4-88f0-06526049e0e7/Js24gUMuMd.json"
                 style="height: 207px"></iframe>
@@ -585,7 +589,7 @@
                     style="margin-top: -110px;"></iframe>
             </div>
         </div>
-    </div>
+    </div>-->
 </p-dialog>
 
 
@@ -804,7 +808,7 @@
                 <label class="form-control-label px-3" style="margin-top: 1px; margin-bottom: 5px;">Table<span
                         class="text-danger">
                         *</span></label>
-                <p-multiSelect   [options]="tableName" [style]="{ 'width.%': '100' }" name="Table"
+                <p-multiSelect   [options]="tableName" [style]="{ 'width.%': '100' }" name="Table" 
                     [(ngModel)]="selectedTableName" [ngClass]="{ 'blink': isBlinking && !dataRetrieve.Table }"
                     (onChange)="onTableSelect($event)"></p-multiSelect >
             </div>
@@ -946,7 +950,7 @@
                 <label class="form-control-label px-3" style="margin-top: 1px; margin-bottom: 5px;">Table Structure<span
                         class="text-danger">
                         *</span></label>
-                <p-multiSelect   [options]="tableName" [filter]="true" filterBy="label" [style]="{ 'width.%': '100' }" name="Table"
+                <p-multiSelect   [options]="tableName" [style]="{ 'width.%': '100' }" name="Table"
                     [(ngModel)]="selectedTableNameStructure" [ngClass]="{ 'blink': isBlinking && !dataRetrieve.Table }"
                     (onChange)="onTableSelect($event)"></p-multiSelect >
             </div>
@@ -983,7 +987,7 @@
                 <th style="width: 4rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="name">Database Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="name">Database Name</th>
                 <th>Tables Structure</th>
                 <th>Tables Data</th>
 
@@ -1010,7 +1014,7 @@
                 ?
                 retrieveDataDatabaseList.length : 0 }} connection.
                 <button type="submit" class="btn-block btn-primary" (click)="showRenameDialog()">Generate
-                    Excel with S+D</button>
+                    Excel</button>
             </div>
             <div class="warning-msg" style="margin: -2px -4px;" *ngIf="warningLabel2">
                 <i class="fa fa-warning"></i>{{errorMessage}}
@@ -1095,8 +1099,7 @@
             </div>
             <div class="row">
                 <div class="col" style="display: grid; width: 20%;    margin-top: 10px;">
-                    <button type="submit" class="btn-block btn-primary" (click)="onGenerateOfUpdateData()">Generate
-                        Excel</button>
+                    <button type="submit" class="btn-block btn-primary" (click)="onGenerateOfUpdateData()">Generate Excel</button>
                 </div>
             </div>
         </div>
@@ -1109,10 +1112,10 @@
 <p-dialog header="Rename File" [(visible)]="RenameDialog" [modal]="true" [style]="{width: '400px'}">
     <div>
       <label for="filename">New Filename:</label>
-      <input type="text" pInputText [(ngModel)]="newFileName" id="filename" />
+      <input type="text"  [(ngModel)]="newFileName" id="filename" style="border: 1px solid gray;"/>
     </div>
     <footer>
-      <button pButton type="button" label="Download" icon="pi pi-check" (click)="onGenerateOfStructureAndData()"></button>
+      <button type="button" class="btn-block btn-primary" (click)="onGenerateOfStructureAndData()">Download</button>
     </footer>
   </p-dialog>
 
